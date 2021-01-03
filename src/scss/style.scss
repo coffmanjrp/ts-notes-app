@@ -1,0 +1,54 @@
+@import 'config';
+
+.add {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #9ec862;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.note {
+  margin: 30px 20px;
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+  .tools {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+    background-color: #9ec862;
+    button {
+      margin-left: 0.5rem;
+      background-color: transparent;
+      border: none;
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  textarea {
+    padding: 20px;
+    width: 100%;
+    height: 400px;
+    border: none;
+    font-family: inherit;
+    font-size: 1.2rem;
+    outline: none;
+  }
+  .main {
+    padding: 20px;
+    ul {
+      padding-left: 20px;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
