@@ -1,14 +1,11 @@
 "use strict";
 var addBtn = document.getElementById('add');
-var notes = JSON.parse(localStorage.getItem('notes'));
+var savedNotes = JSON.parse(localStorage.getItem('notes') || '[]');
 function updateLS() {
     var notesText = document.querySelectorAll('textarea');
     var notes = [];
     notesText.forEach(function (note) { return notes.push(note.value); });
     localStorage.setItem('notes', JSON.stringify(notes));
-}
-if (notes) {
-    notes.forEach(function (note) { return addNewNote(note); });
 }
 function addNewNote(text) {
     if (text === void 0) { text = ''; }
@@ -20,6 +17,7 @@ function addNewNote(text) {
     var main = note.querySelector('.main');
     var textArea = note.querySelector('textarea ');
     textArea.value = text;
+    // @ts-ignore: Unreachable code error
     main.innerHTML = marked(text);
     deleteBtn.addEventListener('click', function () {
         note.remove();
@@ -31,9 +29,13 @@ function addNewNote(text) {
     });
     textArea.addEventListener('input', function (e) {
         var value = e.target.value;
+        // @ts-ignore: Unreachable code error
         main.innerHTML = marked(value);
         updateLS();
     });
     document.body.appendChild(note);
+}
+if (savedNotes) {
+    savedNotes.forEach(function (note) { return addNewNote(note); });
 }
 addBtn.addEventListener('click', function () { return addNewNote(); });

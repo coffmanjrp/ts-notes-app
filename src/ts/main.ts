@@ -1,19 +1,15 @@
 const addBtn = document.getElementById('add') as HTMLButtonElement;
 
-const notes = JSON.parse(localStorage.getItem('notes'));
+const savedNotes = JSON.parse(localStorage.getItem('notes') || '[]');
 
 function updateLS() {
   const notesText = document.querySelectorAll('textarea');
 
-  const notes = [];
+  const notes: string[] = [];
 
   notesText.forEach((note) => notes.push(note.value));
 
   localStorage.setItem('notes', JSON.stringify(notes));
-}
-
-if (notes) {
-  notes.forEach((note) => addNewNote(note));
 }
 
 function addNewNote(text = '') {
@@ -36,6 +32,7 @@ function addNewNote(text = '') {
   const textArea = note.querySelector('textarea ') as HTMLTextAreaElement;
 
   textArea.value = text;
+  // @ts-ignore: Unreachable code error
   main.innerHTML = marked(text);
 
   deleteBtn.addEventListener('click', () => {
@@ -50,14 +47,19 @@ function addNewNote(text = '') {
   });
 
   textArea.addEventListener('input', (e) => {
-    const { value } = e.target;
+    const { value } = e.target as HTMLTextAreaElement;
 
+    // @ts-ignore: Unreachable code error
     main.innerHTML = marked(value);
 
     updateLS();
   });
 
   document.body.appendChild(note);
+}
+
+if (savedNotes) {
+  savedNotes.forEach((note: string) => addNewNote(note));
 }
 
 addBtn.addEventListener('click', () => addNewNote());
